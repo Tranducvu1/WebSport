@@ -413,4 +413,11 @@ public String quanLyNhanHieuPage() {
 	return "admin/quanLyNhanHieu";
 }
 
+
+@GetMapping("/tai-khoan")
+public String quanLyTaiKhoanPage() {
+	return "admin/Profile/quanLyTaiKhoan";
+}
+
+
 }

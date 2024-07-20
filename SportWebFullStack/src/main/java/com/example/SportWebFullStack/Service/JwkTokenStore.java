@@ -13,8 +13,8 @@ import lombok.Data;
 public class JwkTokenStore {
     private Map<String, TokenInfo> tokenStore = new ConcurrentHashMap<>();
 
-    public void storeToken(String accessToken, String refreshToken, String username, List<String> roles) {
-        TokenInfo tokenInfo = new TokenInfo(accessToken, refreshToken, username, roles);
+    public void storeToken(String accessToken, String refreshToken, String username) {
+        TokenInfo tokenInfo = new TokenInfo(accessToken, refreshToken, username);
         tokenStore.put(username, tokenInfo);
     }
 
@@ -31,13 +31,13 @@ public class JwkTokenStore {
         private String accessToken;
         private String refreshToken;
         private String username;
-        private List<String> roles;
+     //   private List<String> roles;
 
-        public TokenInfo(String accessToken, String refreshToken, String username, List<String> roles) {
+        public TokenInfo(String accessToken, String refreshToken, String username) {
             this.accessToken = accessToken;
             this.refreshToken = refreshToken;
             this.username = username;
-            this.roles = roles;
+      //      this.roles = roles;
         }
 
        

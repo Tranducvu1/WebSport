@@ -220,7 +220,11 @@ src="https://www.facebook.com/tr?id=453507135869629&amp;ev=PageView&amp;noscript
                                 </form>
                             </li>
                             <!-- Whishlist-->
-                            <li><a href="signin.html" class="js_whishlist-btn"><i aria-hidden="true" class="fa fa-user"></i></a></li>
+                            <li><a href="/sport/login" class="js_whishlist-btn">
+                            <i aria-hidden="true" class="fa fa-user"></i>
+                                          <span class="glyphicon glyphicon-user">&nbsp;</span>Xin chào: ${loggedInUser.hoTen }</a>
+                            
+                            </a></li>
                             <li>
                                 <a th:href="@{/sport/product/cart}">
                                     <div class="cart-icon">

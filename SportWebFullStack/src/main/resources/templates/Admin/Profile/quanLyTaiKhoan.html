@@ -1,127 +1,104 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="vi">
 <head>
-<meta charset="ISO-8859-1">
-<title>Quản lý tài khoản</title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý tài khoản</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-	<jsp:include page="template/header.jsp"></jsp:include>
-	<jsp:include page="template/sidebar.jsp"></jsp:include>
+    <div class="container mt-5">
+        <h3 class="page-header">Quản lý Tài khoản</h3>
 
-	<div class="col-md-9 animated bounce">
-		<h3 class="page-header">Quản lý Tài khoản</h3>
+        <button class="btn btn-success btnThemTaiKhoan" data-toggle="modal" data-target="#taiKhoanModal">Thêm mới tài khoản</button>
+        
+        <div class="form-group form-inline mt-3">
+            <label for="vaiTro"><strong>Lọc tài khoản:</strong></label>
+            <select id="vaiTro" class="form-control ml-2">
+                <option value="">Tất cả</option>
+                <option value="Admin">Admin</option>
+                <option value="User">User</option>
+            </select>
+        </div>
 
-		<button class="btn btn-success btnThemTaiKhoan">Thêm mới tài
-			khoản</button>
-		<hr>
-		<div class="form-group form-inline">
-			<label for="sel1"><strong>Lọc tài khoản:</strong> </label> <select
-				id="vaiTro" class="form-control">
-				<c:forEach var="vaiTro" items="${listVaiTro}">
-					<option value="${vaiTro.tenVaiTro }">${vaiTro.tenVaiTro }</option>
-				</c:forEach>
-			</select>
-		</div>
-		<hr>
+        <table class="table table-hover taiKhoanTable mt-3">
+            <thead>
+                <tr>
+                    <th>Mã ND</th>
+                    <th>Họ tên</th>
+                    <th>Email</th>
+                    <th>Số điện thoại</th>
+                    <th>Địa chỉ</th>
+                    <th>Vai trò</th>
+                    <th>Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Dữ liệu sẽ được thêm vào đây bằng JavaScript -->
+            </tbody>
+        </table>
+    </div>
 
+    <!-- Modal -->
+    <div class="modal fade" id="taiKhoanModal" tabindex="-1" role="dialog" aria-labelledby="taiKhoanModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="taiKhoanModalLabel">Tạo mới tài khoản</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="taiKhoanForm">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Mật khẩu (8-32 ký tự)</label>
+                            <input type="password" class="form-control" id="password" name="password" required minlength="8" maxlength="32">
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmPassword">Nhắc lại mật khẩu</label>
+                            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Chọn vai trò:</label>
+                            <div>
+                                <label class="radio-inline mr-3">
+                                    <input type="radio" name="tenVaiTro" value="Admin" checked> Admin
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="tenVaiTro" value="User"> User
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="hoTen">Họ tên</label>
+                            <input type="text" class="form-control" id="hoTen" name="hoTen" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="sdt">Số điện thoại</label>
+                            <input type="tel" class="form-control" id="sdt" name="sdt" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="diaChi">Địa chỉ</label>
+                            <input type="text" class="form-control" id="diaChi" name="diaChi" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-primary" id="btnSubmit">Xác nhận</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-		<table class="table table-hover taiKhoanTable"
-			style="text-align: center;">
-			<thead>
-				<tr>
-					<th>Mã ND</th>
-					<th>Họ tên</th>
-					<th>Email</th>
-					<th>Số điện thoại</th>
-					<th>Địa chỉ</th>
-					<th>Vai trò</th>
-					<th></th>
-				</tr>
-
-			</thead>
-			<tbody>
-			</tbody>
-
-		</table>
-	</div>
-	<div class="row col-md-6">
-		<form class="taiKhoanForm" id="form">
-			<div>
-				<div class="modal fade" id="taiKhoanModal" tabindex="-1"
-					role="dialog" aria-labelledby="exampleModalLabel"
-					aria-hidden="true" data-backdrop="static" data-keyboard="false">
-					<div class="modal-dialog" role="document">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalLabel">Tạo mới tài
-									khoản</h5>
-								<button type="button" class="close" data-dismiss="modal"
-									aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body">
-<!-- 								<div class="form-group">
-									<input type="hidden" class="form-control" name="id" />
-								</div> -->
-								<div class="form-group">
-									<label for="name">Email</label> <input type="email"
-										class="form-control" name="email" required />
-								</div>
-								<div class="form-group">
-									<label for="name">Mật khẩu:(8-32 ký tự)</label> <input
-										type="password" class="form-control" name="password" required />
-								</div>
-								<div class="form-group">
-									<label for="name">Nhắc lại mật khẩu:</label> <input type="password"
-										class="form-control" name="confirmPassword" required />
-								</div>
-
-								<div class="form-group">
-									<label for="name">Chọn vai trò:</label>
-									<c:forEach var="vaiTro" items="${listVaiTro}">
-										<label class="radio-inline"> 
-										<input type="radio"
-											name="tenVaiTro" value="${vaiTro.tenVaiTro}" checked="checked">
-											${vaiTro.tenVaiTro}
-										</label>
-									</c:forEach>
-								</div>
-
-								<div class="form-group">
-									<label for="name">Họ tên:</label> <input type="text"
-										class="form-control" name="hoTen" required />
-								</div>
-								<div class="form-group">
-									<label for="name">Số điện thoại:</label> <input type="text"
-										class="form-control" name="sdt" required />
-								</div>
-								<div class="form-group">
-									<label for="name">Địa chỉ:</label> <input type="text"
-										class="form-control" name="diaChi" required />
-								</div>
-
-
-								<div class="modal-footer">
-									<button type="button" class="btn btn-secondary"
-										data-dismiss="modal">Hủy</button>
-									<input class="btn btn-primary" id="btnSubmit" type="button"
-										value="Xác nhận" />
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</form>
-	</div>
-	</div>
-
-	<jsp:include page="template/footer.jsp"></jsp:include>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/jquery.serializeJSON/2.9.0/jquery.serializejson.js"></script>
-	<script src="<c:url value='/js/taiKhoanAjax.js'/>"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="taiKhoanAjax.js"></script>
 </body>
 </html>

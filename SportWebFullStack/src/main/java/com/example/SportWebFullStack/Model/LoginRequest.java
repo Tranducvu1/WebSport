@@ -15,5 +15,5 @@ public class LoginRequest {
 
 	private String password;
 	
-	private List<String> roles;
+	private String roles;
 }
